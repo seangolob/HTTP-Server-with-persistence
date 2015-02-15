@@ -7,8 +7,12 @@ var routes = {};
 routes['/notes'] = notes;
 
 var server = http.createServer(function(req, res) {
-  if (typeof(routes[req.url]) === 'function') {
-    routes[req.url](req, res);
+  var url = req.url;
+  url = url.split('/');
+  url = '/' + url[1];
+  console.log(url);
+  if (typeof(routes[url]) === 'function') {
+    routes[url](req, res);
   } else {
     res.writeHead(200, {
       'Content-Type': 'application/json'

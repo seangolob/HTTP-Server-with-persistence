@@ -15,7 +15,7 @@ describe('post request', function() {
       .send({hello: 'world'})
       .end(function(err, res) {
         expect(err).to.eql(null);
-        expect(res.text).to.eql('I hit POST, PUT, or PATCH');
+        expect(res.text).to.eql('{"msg":"posted"}');
         done();
       });
   });
@@ -24,14 +24,41 @@ describe('post request', function() {
 describe('get request', function() {
   it('responds to a get request', function(done) {
     chai.request('localhost:3000')
-      .get('/notes')
+      .get('/notes/1')
       .end(function(err, res) {
         expect(err).to.eql(null);
-        expect(res.text).to.eql('I hit GET\n');
+        expect(res.text).to.eql('{"putting":"put"}');
         done();
       });
   });
 });
+
+describe('put request', function() {
+  it('responds to a put request', function(done) {
+    chai.request('localhost:3000')
+      .put('/notes/2')
+      .send({hello: 'world'})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.text).to.eql('{"msg":"putted"}');
+        done();
+      });
+  });
+});
+
+describe('patch request', function() {
+  it('responds to a patch request', function(done) {
+    chai.request('localhost:3000')
+      .patch('/notes/3')
+      .send({hello: 'world'})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        expect(res.text).to.eql('{"msg":"putted"}');
+        done();
+      });
+  });
+});
+
 
 
 
